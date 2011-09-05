@@ -1,0 +1,7 @@
+#!/bin/bash
+# CompileTheme V1.0
+# By CorCor67
+cd /home/$USER/Android/ThemeEngine
+source build/envsetup.sh
+lunch themes_generic-eng hdpi
+make -j`grep 'processor' /proc/cpuinfo | wc -l`
