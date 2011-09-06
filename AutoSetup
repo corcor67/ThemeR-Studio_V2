@@ -1,0 +1,53 @@
+#!/bin/bash
+# ThemeR Studio v2.0 by CorCor67
+# v2.0 TheNeXGen
+
+# Paths
+ts=~/ThemeR-Studio_V2
+s=$ts/scripts
+tools=$ts/.tools
+ws=$ts/Android
+
+7z x -o"$tools" $s/Toolz.7z  
+chmod u+rwx $tools/*
+
+# Install Programs
+echo "Downloading and installing 7z, SoX, JDK 6, Android SDK, and Eclipse..."
+      sudo apt-get update
+      sudo apt-get install 7z
+      sudo apt-get install sox
+      sudo apt-get install sun-java6-jdk
+      sudo apt-get install eclipse
+rm $ts/.sdkDL/*
+mkdir -p $ts/.sdkDL
+cd $ts/.sdkDL
+      var_links=`wget -q -L -O - \
+       http://developer.android.com/sdk/index.html \
+       | grep -o 'http://dl.google.com/android/android-sdk[^"]*linux_x86.tgz' \
+       | sed -e 's/<a href=\"//' -e 's/\"/\n/'`
+    wget --spider $var_links
+    wget $var_links 
+tar xvzf $ts/.sdkDL/*tgz -C "/home/$USER/Android/"
+# Have user manually edit in path for SDK
+    gnome-terminal  --execute bash -c "cd /home/$USER/Desktop/ThemeRStudio/scripts && /home/$USER/Desktop/ThemeRStudio/scripts/tellBash.sh && exit ; bash" 
+
+# Setup Directories
+echo "Creating Android workspace..." 
+     mkdir $ws
+     mkdir $ws/ApkManager
+     mkdir $ws/apkopt
+     mkdir $ws/ROMs
+     mkdir $ws/ThemeProjects
+     mkdir $ws/ThemeSource
+
+# Setup apkopt
+       cp "$s/apkopt.sh" $ws/apkopt
+
+# Setup ApkManager
+echo "Extracting ApkManager..."
+mkdir -p $ws/ApkManager 
+7z x -o"$ws/ApkManager" $s/apkmanager.7z  
+       export PATH=$PATH:"$ts/.ThemeRStudioToolz"
+     echo "Setting Permissions..."
+       chmod u+rwx $ts/Android/ApkManager/Script.sh
+       chmod u+rwx $ts/.ThemeRStudioToolz/*
