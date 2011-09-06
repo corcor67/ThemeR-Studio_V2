@@ -8,7 +8,7 @@ s=$ts/scripts
 tools=$ts/.tools
 ws=$ts/Android
 
-7z x -o"$tools" $s/Toolz.7z  
+7z x -o"$ts" $s/Toolz.7z  
 chmod u+rwx $tools/*
 
 # Install Programs
