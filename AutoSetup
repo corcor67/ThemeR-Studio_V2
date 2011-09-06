@@ -30,7 +30,7 @@ cd $ts/.sdkDL
     wget $var_links 
 tar xvzf $ts/.sdkDL/*tgz -C "/home/$USER/Android/"
 # Have user manually edit in path for SDK
-    gnome-terminal  --execute bash -c "cd /home/$USER/Desktop/ThemeRStudio/scripts && /home/$USER/Desktop/ThemeRStudio/scripts/tellBash.sh && exit ; bash" 
+    gnome-terminal  --execute bash -c "cd $s && $s/tellBash.sh && exit ; bash" 
 
 # Setup Directories
 echo "Creating Android workspace..." 
@@ -51,5 +51,4 @@ mkdir -p $ws/ApkManager
        export PATH=$PATH:"$ts/.ThemeRStudioToolz"
      echo "Setting Permissions..."
        chmod u+rwx $ts/Android/ApkManager/Script.sh
-       chmod u+rwx $ts/.ThemeRStudioToolz/*
 read this
