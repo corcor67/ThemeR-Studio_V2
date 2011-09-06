@@ -42,8 +42,6 @@ rm -rf $ts/.sdkDL
        cp "$s/apkopt.sh" $ws/apkopt
 
 # Setup ApkManager
-echo "Extracting ApkManager..."
-7z x -o"$ws/ApkManager" $s/apkmanager.7z
-     echo "Setting Permissions..."
-       chmod u+rwx $ts/Android/ApkManager/Script.sh
+cp "$s/ApkManager.sh" $ws/ApkManager
+cp "$s/ApkManagerLauncher.sh" $ws/ApkManager
 read this
