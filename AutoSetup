@@ -8,8 +8,9 @@ s=$ts/scripts
 tools=$ts/.tools
 ws=$ts/Android
 
-7z x -o"$ts" $s/Toolz.7z  
-chmod u+rwx $tools/*
+7z x -o"$ts" $s/tools.7z
+cd $tools  
+chmod u+rwx *
 
 # Install Programs
 echo "Downloading and installing 7z, SoX, JDK 6, Android SDK, and Eclipse..."
