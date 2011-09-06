@@ -26,7 +26,6 @@ echo "Downloading and installing 7z, SoX, JDK 6, Android SDK, and Eclipse..."
       sudo apt-get install sox
       sudo apt-get install sun-java6-jdk
       sudo apt-get install eclipse
-rm $ts/.sdkDL/*
 mkdir -p $ts/.sdkDL
 cd $ts/.sdkDL
       var_links=`wget -q -L -O - \
@@ -36,6 +35,7 @@ cd $ts/.sdkDL
     wget --spider $var_links
     wget $var_links 
 tar xvzf $ts/.sdkDL/*tgz -C "$ws"
+rm -rf $ts/.sdkDL
 # Have user manually edit in path for SDK
     gnome-terminal  --execute bash -c "cd $s && $s/tellBash.sh && exit ; bash" 
 # Setup apkopt
