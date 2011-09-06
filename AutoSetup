@@ -7,7 +7,14 @@ ts=~/ThemeR-Studio_V2
 s=$ts/scripts
 tools=$ts/.tools
 ws=$ts/Android
-
+# Setup Directories
+echo "Creating Android workspace..." 
+     mkdir $ws
+     mkdir $ws/ApkManager
+     mkdir $ws/apkopt
+     mkdir $ws/ROMs
+     mkdir $ws/ThemeProjects
+     mkdir $ws/ThemeSource
 7z x -o"$ts" $s/tools.7z
 cd $tools  
 chmod u+rwx *
@@ -31,16 +38,6 @@ cd $ts/.sdkDL
 tar xvzf $ts/.sdkDL/*tgz -C "$ws"
 # Have user manually edit in path for SDK
     gnome-terminal  --execute bash -c "cd $s && $s/tellBash.sh && exit ; bash" 
-
-# Setup Directories
-echo "Creating Android workspace..." 
-     mkdir $ws
-     mkdir $ws/ApkManager
-     mkdir $ws/apkopt
-     mkdir $ws/ROMs
-     mkdir $ws/ThemeProjects
-     mkdir $ws/ThemeSource
-
 # Setup apkopt
        cp "$s/apkopt.sh" $ws/apkopt
 
