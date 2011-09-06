@@ -3,5 +3,5 @@
 # Created by CorCor67
 # v1.0 Original build
 
-gnome-terminal  --execute bash -c "cd /home/$USER/Android/ApkManager && /home/$USER/Android/ApkManager/Script.sh && exit ; bash"
+gnome-terminal  --execute bash -c "cd ~/ThemeR-Studio_V2/Android/ApkManager && ~/ThemeR-Studio_V2/Android/ApkManager/Script.sh && exit ; bash"
 exit 0 
