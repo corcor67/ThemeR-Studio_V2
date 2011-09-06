@@ -43,8 +43,7 @@ rm -rf $ts/.sdkDL
 
 # Setup ApkManager
 echo "Extracting ApkManager..."
-7z x -o"$ws/ApkManager" $s/apkmanager.7z  
-       export PATH=$PATH:"$ts/.ThemeRStudioToolz"
+7z x -o"$ws/ApkManager" $s/apkmanager.7z
      echo "Setting Permissions..."
        chmod u+rwx $ts/Android/ApkManager/Script.sh
 read this
