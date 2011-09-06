@@ -52,3 +52,4 @@ mkdir -p $ws/ApkManager
      echo "Setting Permissions..."
        chmod u+rwx $ts/Android/ApkManager/Script.sh
        chmod u+rwx $ts/.ThemeRStudioToolz/*
+read this
