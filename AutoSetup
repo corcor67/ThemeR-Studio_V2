@@ -28,7 +28,7 @@ cd $ts/.sdkDL
        | sed -e 's/<a href=\"//' -e 's/\"/\n/'`
     wget --spider $var_links
     wget $var_links 
-tar xvzf $ts/.sdkDL/*tgz -C "/home/$USER/Android/"
+tar xvzf $ts/.sdkDL/*tgz -C "$ws"
 # Have user manually edit in path for SDK
     gnome-terminal  --execute bash -c "cd $s && $s/tellBash.sh && exit ; bash" 
 
