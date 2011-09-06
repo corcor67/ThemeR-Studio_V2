@@ -43,7 +43,6 @@ rm -rf $ts/.sdkDL
 
 # Setup ApkManager
 echo "Extracting ApkManager..."
-mkdir -p $ws/ApkManager 
 7z x -o"$ws/ApkManager" $s/apkmanager.7z  
        export PATH=$PATH:"$ts/.ThemeRStudioToolz"
      echo "Setting Permissions..."
