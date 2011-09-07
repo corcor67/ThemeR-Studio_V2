@@ -8,10 +8,16 @@
 # v 0.4 removed more bashisms
 # v 0.5 added ogg batch optimization and quoted some vars
 
+
 # Mods by CorCor67
 # Added support for external tools for my ThemeR Studio scripts
 # Now exports path to tools,  no more need to edit .bashrc
 # Added support for user defined png optimization and zip compression,  also set defaults to 4
+
+# v2.0 TheNeXGen - CorCor67
+# Added more variables to trim down size
+# Adjusted paths for new ThemeR-Studio tool locations
+
 
 # PATHS
 ts=~/ThemeR-Studio_V2
