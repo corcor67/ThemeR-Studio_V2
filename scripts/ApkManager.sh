@@ -13,7 +13,12 @@
 # Now exports path to tools,  no more need to edit .bashrc
 # Added support for user defined png optimization and zip compression,  also set defaults to 4
 
-export PATH=$PATH:"/home/$USER/.ThemeRStudioToolz":"/home/$USER/Android/ApkManager"
+# PATHS
+ts=~/ThemeR-Studio_V2
+tools=$ts/.tools
+am=$ts/Android/ApkManager
+
+export PATH=$PATH:"$tools":"$am"
 
 ap () {
 	echo "Where do you want adb to pull the apk from? " 
@@ -27,35 +32,34 @@ ap () {
 }
 
 ex () {
-	cd /home/$USER/.ThemeRStudioToolz
-	rm -f "/home/$USER/Android/ApkManager/place-apk-here-for-modding/repackaged.apk"
-	rm -f "/home/$USER/Android/ApkManager/place-apk-here-for-modding/repackaged-signed.apk"
-	rm -f "/home/$USER/Android/ApkManager/place-apk-here-for-modding/repackaged-unsigned.apk"
-	rm -rf "/home/$USER/Android/ApkManager/out"
-	if [ ! -d "/home/$USER/Android/ApkManager/out" ] ; then
-		mkdir "/home/$USER/Android/ApkManager/out"
+	cd $tools
+	rm -f "$am/place-apk-here-for-modding/repackaged.apk"
+	rm -f "$am/place-apk-here-for-modding/repackaged-signed.apk"
+	rm -f "$am/place-apk-here-for-modding/repackaged-unsigned.apk"
+	rm -rf "$am/out"
+	if [ ! -d "$am/out" ] ; then
+		mkdir "$am/out"
 	fi
 	clear
-	# Must be -o"../out" and not -o "../out"
-	7za x -o"/home/$USER/Android/ApkManager/out" /home/$USER/Android/ApkManager/place-apk-here-for-modding/*.apk
-	cd /home/$USER/Android/ApkManager
+	7za x -o"$am/out" $am/place-apk-here-for-modding/*.apk
+	cd $am
 }
 
 opt () {
-	cd /home/$USER/.ThemeRStudioToolz
-	find "/home/$USER/Android/ApkManager/out/res" -name *.png | while read PNG_FILE ;
+	cd $tools
+	find "$am/out/res" -name *.png | while read PNG_FILE ;
 	do
 		if [ `echo "$PNG_FILE" | grep -c "\.9\.png$"` -eq 0 ] ; then
 			optipng -o$opti "$PNG_FILE"
 		fi
 	done
-	cd /home/$USER/Android/ApkManager
+	cd $am
 }
 
 sys () {
-	cd /home/$USER/.ThemeRStudioToolz
-	7za a -tzip "/home/$USER/Android/ApkManager/place-apk-here-for-modding/repackaged-unsigned.apk" /home/$USER/Android/ApkManager/out/* -mx$compression
-	cd /home/$USER/Android/ApkManager
+	cd $tools
+	7za a -tzip "$am/place-apk-here-for-modding/repackaged-unsigned.apk" $am/out/* -mx$compression
+	cd $am
 }
 
 oa () {
@@ -77,9 +81,9 @@ zip () {
 }
 
 si () {
-	cd /home/$USER/.ThemeRStudioToolz
-	INFILE="/home/$USER/Android/ApkManager/place-apk-here-for-modding/repackaged-unsigned.apk"
-	OUTFILE="/home/$USER/Android/ApkManager/place-apk-here-for-modding/repackaged-signed.apk"
+	cd $tools
+	INFILE="$am/place-apk-here-for-modding/repackaged-unsigned.apk"
+	OUTFILE="$am/place-apk-here-for-modding/repackaged-signed.apk"
 	if [ -e "$INFILE" ] ; then
 		java -jar signapk.jar -w testkey.x509.pem testkey.pk8 "$INFILE" "$OUTFILE"
 		if [ "x$?" = "x0" ] ; then
@@ -89,7 +93,7 @@ si () {
 	else
 		echo "Warning: cannot find file '$INFILE'"
 	fi
-	cd /home/$USER/Android/ApkManager
+	cd $am
 }
 
 zipa () {
@@ -142,21 +146,21 @@ apu () {
 }
 #-------------------------------------------------------------------------------------------------------------------------------Last of /home/$USER/Android/ApkManager
 de () {
-	cd /home/$USER/.ThemeRStudioToolz
-	rm -f "/home/$USER/Android/ApkManager/place-apk-here-for-modding/repackaged.apk"
-	rm -f "/home/$USER/Android/ApkManager/place-apk-here-for-modding/repackaged-signed.apk"
-	rm -f "/home/$USER/Android/ApkManager/place-apk-here-for-modding/repackaged-unsigned.apk"
-	rm -rf "/home/$USER/Android/ApkManager/out"
+	cd $tools
+	rm -f "$am/place-apk-here-for-modding/repackaged.apk"
+	rm -f "$am/place-apk-here-for-modding/repackaged-signed.apk"
+	rm -f "$am/place-apk-here-for-modding/repackaged-unsigned.apk"
+	rm -rf "$am/out"
 	rm -rf "out.out"
 	clear
-	java -jar apktool.jar d /home/$USER/Android/ApkManager/place-apk-here-for-modding/*.apk "/home/$USER/Android/ApkManager/out"
-	cd /home/$USER/Android/ApkManager
+	java -jar apktool.jar d $am/place-apk-here-for-modding/*.apk "$am/out"
+	cd $am
 }
 
 co () {
-	cd /home/$USER/.ThemeRStudioToolz
-	java -jar apktool.jar b "/home/$USER/Android/ApkManager/out" "/home/$USER/Android/ApkManager/place-apk-here-for-modding/repackaged-unsigned.apk"
-	cd /home/$USER/Android/ApkManager
+	cd $tools
+	java -jar apktool.jar b "$am/out" "$am/place-apk-here-for-modding/repackaged-unsigned.apk"
+	cd $am
 }
 
 all () {
@@ -166,15 +170,15 @@ all () {
 }
 
 bopt () {
-	cd /home/$USER/.ThemeRStudioToolz
-	mkdir -p "/home/$USER/Android/ApkManager/place-apk-here-to-batch-optimize/original"
-	find "/home/$USER/Android/ApkManager/place-apk-here-to-batch-optimize" -name *.apk | while read APK_FILE ;
+	cd $tools
+	mkdir -p "$am/place-apk-here-to-batch-optimize/original"
+	find "$am/place-apk-here-to-batch-optimize" -name *.apk | while read APK_FILE ;
 	do
 		echo "Optimizing $APK_FILE"
 		# Extract
-		7za x -o"/home/$USER/Android/ApkManager/place-apk-here-to-batch-optimize/original" "/home/$USER/Android/ApkManager/place-apk-here-to-batch-optimize/$APK_FILE"
+		7za x -o"$am/place-apk-here-to-batch-optimize/original" "$am/place-apk-here-to-batch-optimize/$APK_FILE"
 		# PNG
-		find "/home/$USER/Android/ApkManager/place-apk-here-to-batch-optimize/original" -name *.png | while read PNG_FILE ;
+		find "$am/place-apk-here-to-batch-optimize/original" -name *.png | while read PNG_FILE ;
 		do
 			if [ `echo "$PNG_FILE" | grep -c "\.9\.png$"` -eq 0 ] ; then
 				optipng -o$opti "$PNG_FILE"
@@ -182,27 +186,27 @@ bopt () {
 		done
 		# TODO optimize .ogg files
 		# Re-compress
-		7za a -tzip "/home/$USER/Android/ApkManager/place-apk-here-to-batch-optimize/temp.zip" /home/$USER/Android/ApkManager/place-apk-here-to-batch-optimize/original/* -mx$compression
+		7za a -tzip "$am/place-apk-here-to-batch-optimize/temp.zip" /$am/place-apk-here-to-batch-optimize/original/* -mx$compression
 		FILE=`basename "$APK_FILE"`
 		DIR=`dirname "$APK_FILE"`
-		mv -f "/home/$USER/Android/ApkManager/place-apk-here-to-batch-optimize/temp.zip" "$DIR/optimized-$FILE"
-		rm -rf /home/$USER/Android/ApkManager/place-apk-here-to-batch-optimize/original/*
+		mv -f "$am/place-apk-here-to-batch-optimize/temp.zip" "$DIR/optimized-$FILE"
+		rm -rf $am/place-apk-here-to-batch-optimize/original/*
 	done
-	rm -rf "/home/$USER/Android/ApkManager/place-apk-here-to-batch-optimize/original"
-	cd /home/$USER/Android/ApkManager
+	rm -rf "$am/place-apk-here-to-batch-optimize/original"
+	cd $am
 }
 
 asi () {
-	cd /home/$USER/.ThemeRStudioToolz
-	rm -f "/home/$USER/Android/ApkManager/place-apk-here-for-signing/signed.apk"
-	java -jar signapk.jar -w testkey.x509.pem testkey.pk8 /home/$USER/Android/ApkManager/place-apk-here-for-signing/*.apk "/home/$USER/Android/ApkManager/place-apk-here-for-signing/signed.apk"
+	cd $tools
+	rm -f "$am/place-apk-here-for-signing/signed.apk"
+	java -jar signapk.jar -w testkey.x509.pem testkey.pk8 $am/place-apk-here-for-signing/*.apk "$am/place-apk-here-for-signing/signed.apk"
 	#clear
-	cd /home/$USER/Android/ApkManager
+	cd $am
 }
 
 ogg () {
-	cd /home/$USER/.ThemeRStudioToolz
-	find "/home/$USER/Android/ApkManager/place-ogg-here/" -name *.ogg | while read OGG_FILE ;
+	cd $tools
+	find "$am/place-ogg-here/" -name *.ogg | while read OGG_FILE ;
 	do
 		FILE=`basename "$OGG_FILE"`
 		DIR=`dirname "$OGG_FILE"`
@@ -313,9 +317,8 @@ restart () {
 }
 
 # Start
-PATH="$PATH:/home/$USER/.ThemeRStudioToolz"
+PATH="$PATH:$tools"
 export PATH
-#echo $PATH
 # Test for needed programs and warn if missing
 ERROR="0"
 for PROGRAM in "optipng" "7za" "java" "sudo" "adb" "aapt" "sox"
