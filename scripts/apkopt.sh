@@ -7,7 +7,7 @@
 # Also added the option for user to define compression and optimization levels
 # Sets path variables (for ThemeR Studio) so the user doesn't have to edit .bashrc
 
-PATH="$PATH:/home/$USER/.ThemeRStudioToolz"
+PATH="$PATH:~/ThemeR-Studio_V2/.tools"
 export PATH
 #echo $PATH
 # Test for needed programs and warn if missing
