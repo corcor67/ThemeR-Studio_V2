@@ -22,7 +22,7 @@ chmod u+rwx *
 # Install Programs
 echo "Downloading and installing 7z, SoX, JDK 6, Android SDK, and Eclipse..."
       sudo apt-get update
-      sudo apt-get install 7z sox sun-java6-jdk eclipse gnome-terminal
+      sudo apt-get install 7z sox sun-java6-jdk eclipse
 mkdir -p $ts/.sdkDL
 cd $ts/.sdkDL
       var_links=`wget -q -L -O - \
@@ -34,7 +34,7 @@ cd $ts/.sdkDL
 tar xvzf $ts/.sdkDL/*tgz -C "$ws"
 rm -rf $ts/.sdkDL
 # Have user manually edit in path for SDK
-    gnome-terminal  --execute bash -c "cd $s && $s/tellBash.sh && exit ; bash" 
+       $s/tellBash.sh
 # Setup apkopt
        cp "$s/apkopt.sh" $ws/apkopt
 
