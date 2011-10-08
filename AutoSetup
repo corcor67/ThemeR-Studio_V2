@@ -22,7 +22,7 @@ chmod u+rwx *
 # Install Programs
 echo "Downloading and installing 7z, SoX, JDK 6, Android SDK, and Eclipse..."
       sudo apt-get update
-      sudo apt-get install 7z sox sun-java6-jdk eclipse
+      sudo apt-get install 7z sox sun-java6-jdk eclipse gnome-terminal
 mkdir -p $ts/.sdkDL
 cd $ts/.sdkDL
       var_links=`wget -q -L -O - \
