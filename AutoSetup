@@ -7,6 +7,14 @@ ts=~/ThemeR-Studio_V2
 s=$ts/scripts
 tools=$ts/.tools
 ws=$ts/Android
+
+# Install Programs
+echo "Downloading and installing dependencies required by ThemeR-Studio_V2"
+      sudo apt-get update
+      sudo apt-get install p7zip-full
+      sudo apt-get install sox
+      sudo apt-get install openjdk-6-jdk
+
 # Setup Directories
 echo "Creating Android workspace..." 
      mkdir -p $ws
@@ -19,10 +27,6 @@ echo "Creating Android workspace..."
 cd $tools  
 chmod u+rwx *
 
-# Install Programs
-echo "Downloading and installing 7z, SoX, JDK 6, Android SDK, and Eclipse..."
-      sudo apt-get update
-      sudo apt-get install 7z sox sun-java6-jdk eclipse
 mkdir -p $ts/.sdkDL
 cd $ts/.sdkDL
       var_links=`wget -q -L -O - \
