@@ -31,7 +31,7 @@ mkdir -p $ts/.sdkDL
 cd $ts/.sdkDL
       var_links=`wget -q -L -O - \
        http://developer.android.com/sdk/index.html \
-       | grep -o 'http://dl.google.com/android/android-sdk[^"]*linux_x86.tgz' \
+       | grep -o 'http://dl.google.com/android/android-sdk[^"]*linux.tgz' \
        | sed -e 's/<a href=\"//' -e 's/\"/\n/'`
     wget --spider $var_links
     wget $var_links 
