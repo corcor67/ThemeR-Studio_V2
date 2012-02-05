@@ -9,7 +9,7 @@ echo "Copy & paste the following 3 lines to the text editor that opened,  then g
 echo ""
 echo ""
 echo "# Path for Android SDK"
-echo 'export PATH=$PATH:~/ThemeR-Studio_V2/Android/android-sdk-linux_x86/tools:~/ThemeR-Studio_V2/Android/android-sdk-linux_x86/platform-tools:~/bin'
+echo 'export PATH=$PATH:~/ThemeR-Studio_V2/Android/android-sdk-linux/tools:~/ThemeR-Studio_V2/Android/android-sdk-linux_x86/platform-tools:~/bin'
 echo ""
 echo ""
 gedit /home/$USER/.bashrc
