@@ -1,0 +1,75 @@
+#!/bin/bash
+# ThemeR Studio v2.0 by CorCor67
+# v2.0 TheNeXGen
+
+# Paths
+ts=~/ThemeR-Studio_V2
+s=$ts/scripts
+tools=$ts/.tools
+ws=$ts/Android
+am=~/ThemeR-Studio_V2/Android/ApkManager/ApkManager.sh
+ao=~/ThemeR-Studio_V2/Android/apkopt/apkopt.sh
+sdk=$ws/android-sdk-linux
+d9p=/home/corcor67/ThemeR-Studio_V2/Android/android-sdk-linux/tools/draw9patch
+
+
+#!/bin/bash
+# ThemeR Studio v1.0 (C) 2011 CorCor67
+# v1.0 Initial Release
+# Notice:  You are welcome to modify these scripts as you see fit,  I only ask that you keep credits to the original authors in tact.  I put a lot of work into getting these where they are and im sure the authors of ApkManager and ApkOpt both did too.  In the credits section I have included a few ways to contact me,  I would love to see any changes or improvements you might have.
+
+selection=
+until [ "$selection" = "0" ]; do
+clear
+    echo ""
+    echo " <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>"
+    echo "  <><><><><><><><><><><><>   ThemeR-Studio_V2   <><><><><><><><><><><><> "
+    echo " <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>"
+    echo " <>   1 - ApkManager                                                   <>"
+    echo " <>   2 - ApkOpt                                                       <>"
+    echo " <>   3 - draw9patch                                                   <>"
+    echo " <>                                                                    <>"
+    echo " <>                                                                    <>"
+    echo " <>   0 - Exit                                                         <>"
+    echo " <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>"
+    echo ""
+    echo -n "Enter selection: "
+    read selection
+    echo ""
+    case $selection in
+#*********************************************************************
+#*********************************************************************
+1 ) 
+{
+	gnome-terminal  --execute bash -c "$am && exit ; bash" 
+}
+;;
+#*********************************************************************
+#*********************************************************************
+2 ) clear
+{
+	gnome-terminal  --execute bash -c "$ao && exit ; bash" 
+}
+;;
+#*********************************************************************
+#*********************************************************************
+3 )  clear
+echo "WARNING:  Closing this window will cause draw9patch to close as well."
+echo "This will revert to ThemeR-Studio when you close draw9patch."
+{
+	$d9p
+}	
+ ;;
+#*********************************************************************
+#*********************************************************************
+0 ) 
+clear
+    echo " <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>"
+    echo "  <><><><><><><><><><><><>  Thank You For Using  <><><><><><><><><><><>"
+    echo " <><><><><><><><><><><><><>   ThemeR-Studio_V2    <><><><><><><><><><><><>"
+    echo "  <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>"
+sleep 2
+exit ;;
+* ) echo "Please enter a number from the list above"
+    esac
+done
