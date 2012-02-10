@@ -39,17 +39,18 @@ tar xvzf $ts/.sdkDL/*tgz -C "$ws"
 rm -rf $ts/.sdkDL
 # Have user manually edit in path for SDK
        $s/tellBash.sh
-# Setup apkopt
-       cp "$s/apkopt.sh" $ws/apkopt
-
-# Setup ApkManager
-cp "$s/ApkManager.sh" $ws/ApkManager
 
 # Launch Android script from SDK so user can install platforms and tools.
 clear
 echo "A window will open for the Android SDK"
 echo "Install platforms and tools from here or close it to continue."
 $ws/android-sdk-linux/tools/android
+
+# Setup apkopt
+       cp "$s/apkopt.sh" $ws/apkopt
+
+# Setup ApkManager
+cp "$s/ApkManager.sh" $ws/ApkManager
 
 clear
 choice=4
