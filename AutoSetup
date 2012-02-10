@@ -49,8 +49,8 @@ cp "$s/ApkManagerLauncher.sh" $ws/ApkManager
 clear
 echo "A window will open for the Android SDK"
 echo "Install platforms and tools from here or close it to continue."
-cd Android/android-sdk-linux_x86/tools
-bash android
+$ws/android-sdk-linux/tools/android
+
 clear
 choice=4
  echo "1. Yes setup ThemeEngine for me!"
