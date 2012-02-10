@@ -44,7 +44,7 @@ rm -rf $ts/.sdkDL
 
 # Setup ApkManager
 cp "$s/ApkManager.sh" $ws/ApkManager
-cp "$s/ApkManagerLauncher.sh" $ws/ApkManager
+
 # Launch Android script from SDK so user can install platforms and tools.
 clear
 echo "A window will open for the Android SDK"
