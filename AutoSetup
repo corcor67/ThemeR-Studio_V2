@@ -48,6 +48,7 @@ $ws/android-sdk-linux/tools/android
 
 # Setup ApkManager
 cp "$s/ApkManager.sh" $ws/ApkManager
+cp "$s/ApkManagerICS.sh" $ws/ApkManager
 
 clear
 choice=4
