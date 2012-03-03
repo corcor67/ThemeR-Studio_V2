@@ -356,7 +356,6 @@ if [ "x$INPUT" = "xy" ] || [ "x$INPUT" = "xY" ] ; then
 	rm -rf place-apk-here-for-signing
 	rm -rf place-apk-here-to-batch-optimize
 	rm -rf out
-	rm -rf $HOME/apktool
 	mkdir place-apk-here-for-modding
 	mkdir place-apk-here-for-signing
 	mkdir place-apk-here-to-batch-optimize
