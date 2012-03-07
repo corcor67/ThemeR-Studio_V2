@@ -50,40 +50,42 @@ $ws/android-sdk-linux/tools/android
 cp "$s/ApkManager.sh" $ws/ApkManager
 cp "$s/ApkManagerICS.sh" $ws/ApkManager
 
-clear
-choice=4
- echo "1. Yes setup ThemeEngine for me!"
- echo "2. No thanks."
- echo -n "Please select an option..."
-while [ $choice -eq 4 ]; do
-read choice
-if [ $choice -eq 1 ] ; then
+########## Theme Engine Scripts ##########
+########## Currently Removed    ##########
+# clear
+# choice=4
+# echo "1. Yes setup ThemeEngine for me!"
+# echo "2. No thanks."
+# echo -n "Please select an option..."
+# while [ $choice -eq 4 ]; do
+#read choice
+# if [ $choice -eq 1 ] ; then
  
-        echo "Launching ThemeEngine Script"
+#        echo "Launching ThemeEngine Script"
 # Detect if user has 32 or 64 bit sys launches the appropriate script & removes the other
-MACHINE_TYPE=`uname -m`
-if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-rm $s/ThemeEngine32.sh
-$s/ThemeEngine64.sh
-else
-rm $s/ThemeEngine64.sh
-$s/ThemeEngine32.sh
-fi
+# MACHINE_TYPE=`uname -m`
+# if [ ${MACHINE_TYPE} == 'x86_64' ]; then
+# rm $s/ThemeEngine32.sh
+# $s/ThemeEngine64.sh
+# else
+# rm $s/ThemeEngine64.sh
+# $s/ThemeEngine32.sh
+# fi
 
-else                   
+# else                   
 
-        if [ $choice -eq 2 ] ; then
-                 echo ""
-        else
-                        echo "Please make a choice..."
-                        echo "1. Yes setup ThemeEngine for me!"
-                        echo "2. No thanks."
-                        echo -n ""
-                        choice=4
-        fi
-fi
-done 
-clear
+#        if [ $choice -eq 2 ] ; then
+#                 echo ""
+#        else
+#                        echo "Please make a choice..."
+#                        echo "1. Yes setup ThemeEngine for me!"
+#                        echo "2. No thanks."
+#                        echo -n ""
+#                        choice=4
+#        fi
+# fi
+# done 
+# clear
 
 
 echo ""
