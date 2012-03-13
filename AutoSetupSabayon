@@ -10,14 +10,14 @@ ws=$ts/Android
 
 # Install Programs
 echo "Downloading and installing dependencies required by ThemeR-Studio_V2"
-      sudo apt-get update
-      sudo apt-get install p7zip-full
-      sudo apt-get install sox
-      sudo apt-get install openjdk-6-jdk
+      sudo equo install p7zip-9.20.1
+      sudo equo install sox
+      sudo equo install sun-jdk-1.6.0.26
 
 # Setup Directories
 echo "Creating Android workspace..." 
      mkdir -p $ws
+     mkdir -p $ws/ThemeR-Studio
      mkdir -p $ws/ApkManager
      mkdir -p $ws/apkopt
 7z x -o"$ts" $s/tools.7z
@@ -49,6 +49,7 @@ $ws/android-sdk-linux/tools/android
 # Setup ApkManager
 cp "$s/ApkManager.sh" $ws/ApkManager
 cp "$s/ApkManagerICS.sh" $ws/ApkManager
+cp "$s/ThemeR-Studio.sh" $ws/ThemeR-Studio
 
 ########## Theme Engine Scripts ##########
 ########## Currently Removed    ##########

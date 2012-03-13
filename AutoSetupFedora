@@ -1,0 +1,108 @@
+#!/bin/bash
+# ThemeR Studio v2.0 by CorCor67
+# v2.0 TheNeXGen
+
+# Paths
+ts=~/ThemeR-Studio_V2
+s=$ts/scripts
+tools=$ts/.tools
+ws=$ts/Android
+
+# Install Programs
+echo "Downloading and installing dependencies required by ThemeR-Studio_V2"
+      sudo yum install wget
+      sudo yum install p7zip
+      sudo yum install sox
+
+# Get Java
+MACHINE_TYPE=`uname -m`
+if [ ${MACHINE_TYPE} == 'x86_64' ]; then
+wget http://download.oracle.com/otn-pub/java/jdk/6u31-b04/jdk-6u31-linux-x64-rpm.bin
+chmod +x jdk-6u31-linux-x64-rpm.bin
+sudo ./jdk-6u31-linux-x64-rpm.bin
+rm jdk-6u31-linux-x64-rpm.bin
+else
+wget http://download.oracle.com/otn-pub/java/jdk/6u31-b04/jdk-6u31-linux-i586-rpm.bin
+chmod +x jdk-6u31-linux-i586-rpm.bin
+sudo ./jdk-6u31-linux-i586-rpm.bin
+rm jdk-6u31-linux-i586-rpm.bin
+fi
+
+# Setup Directories
+echo "Creating Android workspace..." 
+     mkdir -p $ws
+     mkdir -p $ws/ThemeR-Studio
+     mkdir -p $ws/ApkManager
+     mkdir -p $ws/apkopt
+7z x -o"$ts" $s/tools.7z
+cd $tools  
+chmod u+rwx *
+
+mkdir -p $ts/.sdkDL
+cd $ts/.sdkDL
+      var_links=`wget -q -L -O - \
+       http://developer.android.com/sdk/index.html \
+       | grep -o 'http://dl.google.com/android/android-sdk[^"]*linux.tgz' \
+       | sed -e 's/<a href=\"//' -e 's/\"/\n/'`
+    wget --spider $var_links
+    wget $var_links 
+tar xvzf $ts/.sdkDL/*tgz -C "$ws"
+rm -rf $ts/.sdkDL
+# Have user manually edit in path for SDK
+       $s/tellBash.sh
+
+# Launch Android script from SDK so user can install platforms and tools.
+clear
+echo "A window will open for the Android SDK"
+echo "Install platforms and tools from here or close it to continue."
+$ws/android-sdk-linux/tools/android
+
+# Setup apkopt
+       cp "$s/apkopt.sh" $ws/apkopt
+
+# Setup ApkManager
+cp "$s/ApkManager.sh" $ws/ApkManager
+cp "$s/ApkManagerICS.sh" $ws/ApkManager
+cp "$s/ThemeR-Studio.sh" $ws/ThemeR-Studio
+
+########## Theme Engine Scripts ##########
+########## Currently Removed    ##########
+# clear
+# choice=4
+# echo "1. Yes setup ThemeEngine for me!"
+# echo "2. No thanks."
+# echo -n "Please select an option..."
+# while [ $choice -eq 4 ]; do
+#read choice
+# if [ $choice -eq 1 ] ; then
+ 
+#        echo "Launching ThemeEngine Script"
+# Detect if user has 32 or 64 bit sys launches the appropriate script & removes the other
+# MACHINE_TYPE=`uname -m`
+# if [ ${MACHINE_TYPE} == 'x86_64' ]; then
+# rm $s/ThemeEngine32.sh
+# $s/ThemeEngine64.sh
+# else
+# rm $s/ThemeEngine64.sh
+# $s/ThemeEngine32.sh
+# fi
+
+# else                   
+
+#        if [ $choice -eq 2 ] ; then
+#                 echo ""
+#        else
+#                        echo "Please make a choice..."
+#                        echo "1. Yes setup ThemeEngine for me!"
+#                        echo "2. No thanks."
+#                        echo -n ""
+#                        choice=4
+#        fi
+# fi
+# done 
+# clear
+
+
+echo ""
+echo "Done! Thank you for using ThemeR-Studio, press enter to close."
+read this
