@@ -22,21 +22,28 @@
 # Added batch compile
 # Added batch zipalign
 # Added support for decompiling and compiling Ice Cream Sandwich
-# 
+# Added Batch Operations Menu
 
-# PATHS
+# path variables
 ts=~/ThemeR-Studio_V2
 tools=$ts/.tools
 am=$ts/Android/ThemeR-Studio
-
+ca=$am/batch-compiled-apks
+da=$am/batch-decompiled-apks
+pam="$am/place-apk-here-for-modding"
+bo=$am/place-apk-here-to-batch-optimize
+rom=$am/place-rom-here
+fw=$rom/decompressed/system/framework
+app=$rom/decompressed/system/app
+# export path
 export PATH=$PATH:"$tools":"$am"
 
 ap () {
-	echo "Where do you want adb to pull the apk from? " 
+	echo "Where do you want adb to pull the apk from?" 
 	echo "Example of input : /system/app/launcher.apk"
 	read INPUT
 	APK_FILE=`basename $INPUT`
-	adb pull "$INPUT" "place-apk-here-for-modding/$APK_FILE"
+	adb pull "$INPUT" "$pam/$APK_FILE"
 	if [ "$?" -ne "0" ] ; then
 		echo "Error: while pulling $APK_FILE"
 	fi
@@ -44,15 +51,15 @@ ap () {
 
 ex () {
 	cd $tools
-	rm -f "$am/place-apk-here-for-modding/repackaged.apk"
-	rm -f "$am/place-apk-here-for-modding/repackaged-signed.apk"
-	rm -f "$am/place-apk-here-for-modding/repackaged-unsigned.apk"
+	rm -f "$pam/repackaged.apk"
+	rm -f "$pam/repackaged-signed.apk"
+	rm -f "$pam/repackaged-unsigned.apk"
 	rm -rf "$am/out"
 	if [ ! -d "$am/out" ] ; then
 		mkdir "$am/out"
 	fi
 	clear
-	7za x -o"$am/out" $am/place-apk-here-for-modding/*.apk
+	7za x -o"$am/out" $am/$pam/*.apk
 	cd $am
 }
 
@@ -69,7 +76,7 @@ opt () {
 
 sys () {
 	cd $tools
-	7za a -tzip "$am/place-apk-here-for-modding/repackaged-unsigned.apk" $am/out/* -mx$compression
+	7za a -tzip "$pam/repackaged-unsigned.apk" $am/out/* -mx$compression
 	cd $am
 }
 
@@ -93,8 +100,8 @@ zip () {
 
 si () {
 	cd $tools
-	INFILE="$am/place-apk-here-for-modding/repackaged-unsigned.apk"
-	OUTFILE="$am/place-apk-here-for-modding/repackaged-signed.apk"
+	INFILE="$pam/repackaged-unsigned.apk"
+	OUTFILE="$pam/repackaged-signed.apk"
 	if [ -e "$INFILE" ] ; then
 		java -jar signapk.jar -w testkey.x509.pem testkey.pk8 "$INFILE" "$OUTFILE"
 		if [ "x$?" = "x0" ] ; then
@@ -110,13 +117,13 @@ si () {
 zipa () {
 	for STRING in "signed" "unsigned"
 	do
-		if [ -e "place-apk-here-for-modding/repackaged-$STRING.apk" ] ; then
-			zipalign -fv 4 "place-apk-here-for-modding/repackaged-$STRING.apk" "place-apk-here-for-modding/repackaged-$STRING-aligned.apk"
+		if [ -e "$pam/repackaged-$STRING.apk" ] ; then
+			zipalign -fv 4 "$pam/repackaged-$STRING.apk" "$pam/repackaged-$STRING-aligned.apk"
 			if [ "x$?" = "x0" ] ; then
-				mv -f "place-apk-here-for-modding/repackaged-$STRING-aligned.apk" "place-apk-here-for-modding/repackaged-$STRING.apk"
+				mv -f "$pam/repackaged-$STRING-aligned.apk" "$pam/repackaged-$STRING.apk"
 			fi
 		else
-			echo "zipalign: cannot find file 'place-apk-here-for-modding/repackaged-$STRING.apk'"
+			echo "zipalign: cannot find file $pam/repackaged-$STRING.apk"
 		fi
 	done
 }
@@ -129,24 +136,24 @@ apu () {
 	printf "%s" "Hit Enter to continue "
 	read DUMMY
 	adb remount
-	adb push "place-apk-here-for-modding/repackaged-unsigned.apk" "$INPUT"
+	adb push "$pam/repackaged-unsigned.apk" "$INPUT"
 }
 #-------------------------------------------------------------------------------------------------------------------------------Last of /home/$USER/Android/ApkManager
 de () {
 	cd $tools
-	rm -f "$am/place-apk-here-for-modding/repackaged.apk"
-	rm -f "$am/place-apk-here-for-modding/repackaged-signed.apk"
-	rm -f "$am/place-apk-here-for-modding/repackaged-unsigned.apk"
+	rm -f "$pam/repackaged.apk"
+	rm -f "$pam/repackaged-signed.apk"
+	rm -f "$pam/repackaged-unsigned.apk"
 	rm -rf "$am/out"
 	rm -rf "out.out"
 	clear
-	java -jar apktool1.4.2.jar d $am/place-apk-here-for-modding/*.apk "$am/out"
+	java -jar apktool1.4.2.jar d $pam/*.apk "$am/out"
 	cd $am
 }
 
 co () {
 	cd $tools
-	java -jar apktool1.4.3.jar b "$am/out" "$am/place-apk-here-for-modding/repackaged-unsigned.apk"
+	java -jar apktool1.4.3.jar b "$am/out" "$pam/repackaged-unsigned.apk"
 	cd $am
 }
 
@@ -157,14 +164,14 @@ all () {
 
 bopt () {
 	cd $tools
-	mkdir -p "$am/place-apk-here-to-batch-optimize/original"
-	find "$am/place-apk-here-to-batch-optimize" -name *.apk | while read APK_FILE ;
+	mkdir -p "$bo/original"
+	find "$bo" -name *.apk | while read APK_FILE ;
 	do
 		echo "Optimizing $APK_FILE"
 		# Extract
-		7za x -o"$am/place-apk-here-to-batch-optimize/original" "$am/place-apk-here-to-batch-optimize/$APK_FILE"
+		7za x -o"$bo/original" "$bo/$APK_FILE"
 		# PNG
-		find "$am/place-apk-here-to-batch-optimize/original" -name *.png | while read PNG_FILE ;
+		find "$bo/original" -name *.png | while read PNG_FILE ;
 		do
 			if [ `echo "$PNG_FILE" | grep -c "\.9\.png$"` -eq 0 ] ; then
 				optipng -o$opti "$PNG_FILE"
@@ -172,13 +179,13 @@ bopt () {
 		done
 		# TODO optimize .ogg files
 		# Re-compress
-		7za a -tzip "$am/place-apk-here-to-batch-optimize/temp.zip" /$am/place-apk-here-to-batch-optimize/original/* -mx$compression
+		7za a -tzip "$bo/temp.zip" $bo/original/* -mx$compression
 		FILE=`basename "$APK_FILE"`
 		DIR=`dirname "$APK_FILE"`
-		mv -f "$am/place-apk-here-to-batch-optimize/temp.zip" "$DIR/optimized-$FILE"
-		rm -rf $am/place-apk-here-to-batch-optimize/original/*
+		mv -f "$bo/temp.zip" "$DIR/optimized-$FILE"
+		rm -rf $bo/original/*
 	done
-	rm -rf "$am/place-apk-here-to-batch-optimize/original"
+	rm -rf "$bo/original"
 	cd $am
 }
 
@@ -213,50 +220,54 @@ echo "Invalid entry compression has been set to default" ;;
 esac
 
 }
+
 # Begin batch ops
+
+###Batch Decompile###
+
 bde () {
 fw
-mkdir -p $am/batch-decompiled-apks
+rm -rf $da
+mkdir -p $da
 # /system/app
-cd $am/place-rom-here-for-frameworks/decompressed/system/app
+cd $app
 for apks in $(find . -name "*.apk")
 do
-cp "${apks}" $am/place-apk-here-for-modding/$apks
-cd $am
-de
-cp -r "$am/out/" $am/batch-decompiled-apks/"`basename $apks .apk`"
-rm -rf $am/out
+echo "$apks"
+cd $tools
+java -jar apktool1.4.2.jar d $app/$apks $da/"`basename $apks .apk`"
 done
 
 # /frameworks
-cd $am/place-rom-here-for-frameworks/decompressed/system/framework
+cd $fw
 for apks in $(find . -name "*.apk")
 do
-cp "${apks}" $am/place-apk-here-for-modding/$apks
-cd $am
-de
-cp -r "$am/out/" $am/batch-decompiled-apks/"`basename $apks .apk`"
-rm -rf $am/out
+echo $apks
+cd $tools
+java -jar apktool1.4.2.jar d $fw/$apks $da/"`basename $apks .apk`"
 done
-
+cd $am
 }
+
+###Batch Compile###
 
 bco () {
-mkdir -p $am/batch-compiled-apks
-cd $am/batch-decompiled-apks
+rm -rf $ca
+mkdir -p $ca
+cd $da
 for dirs in *
 do
-rm -rf $am/out
-mkdir $am/out
-cp -r $am/batch-decompiled-apks/$dirs/* $am/out
-co
-cp "$am/place-apk-here-for-modding/repackaged-unsigned.apk" $am/batch-compiled-apks/$dirs.apk
+cd $tools
+java -jar apktool1.4.3.jar b "$dirs" "$ca/$dirs.apk"
 done
+cd $am
 }
+
+###Batch Zipalign###
 
 bza () {
 
-cd $am/batch-compiled-apks
+cd $ca
 mkdir -p original_apks
 mkdir -p optimized_apks
 	for a in *.apk
@@ -267,18 +278,19 @@ cp $a original_apks/$a
 #rm $a
 	done
 }
+
 # End batch ops
 
 fw () { clear 
 	mkdir -p ~/apktool/framework/
-	rm -rf $am/place-rom-here-for-frameworks/decompressed
-	7z x -o"$am/place-rom-here-for-frameworks/decompressed" $am/place-rom-here-for-frameworks/*.zip
-	cd $am/place-rom-here-for-frameworks/decompressed/system/framework
+	rm -rf $rom/decompressed
+	7z x -o"$rom/decompressed" $rom/*.zip
+	cd $rom/decompressed/system/framework
 	rm -rf ~/apktool/frameworks/*
 	cp "framework-res.apk" ~/apktool/framework/1.apk
-	rm $am/place-rom-here-for-frameworks/decompressed/system/framework/framework-res.apk
+#	rm $rom/decompressed/system/framework/framework-res.apk
 # Find any third party frameworks
-	for apk in $(find . -name "*.apk"); do
+	for apk in $(find . -name "com.*.apk"); do
 		cp "${apk}" ~/apktool/framework/2.apk
 done
 
@@ -317,17 +329,15 @@ echo ""
 printf "%s" "Are you sure you want to do this? (y/n)"
 read INPUT
 if [ "x$INPUT" = "xy" ] || [ "x$INPUT" = "xY" ] ; then
-	rm -rf batch-compiled-apks
-	rm -rf batch-decompiled-apks
-	rm -rf place-apk-here-for-modding
-	rm -rf place-apk-here-to-batch-optimize
-	rm -rf place-rom-here
+	rm -rf $ca
+	rm -rf $da
+	rm -rf $pam
+	rm -rf $bo
+	rm -rf $rom
 	rm -rf out
-	rm -rf batch-compiled-apks
-	rm -rf batch-decompiled-apks
-	mkdir place-apk-here-for-modding
-	mkdir place-apk-here-to-batch-optimize
-	mkdir place-rom-here
+	mkdir -p $pam
+	mkdir -p $bo
+	mkdir -p $rom
 fi
 
 }
@@ -339,26 +349,24 @@ quit () {
 restart () {
 clear
 	echo "**************************** ThemeR-Studio_V2 *****************************"
-	echo "*  1    Adb pull								*"
-	echo "*  2    Extract apk							*"
-	echo "*  3    Optimize images inside (Only if \"Extract Apk\" was selected)	*"
-	echo "*  4    Zip apk								*"
-	echo "*  5    Sign apk (Dont do this if its a system apk)			*"
-	echo "*  6    Zipalign apk (Do once apk is created/signed)			*"
-	echo "*  7    Adb push (Only for system apk)					*"
-	echo "*  8    Decompile apk							*"
-	echo "*  9    Compile apk							*"
-	echo "*  10   Sign apk								*"
-	echo "*  11   Compile apk / Sign apk / Install apk (All in one step)		*"
-	echo "*  12   Batch Optimize Apk (inside place-apk-here-to-batch-optimize only)	*"
-	echo "*  13   Tool Tweaks - (Optipng & compression settings)			*"
-	echo "*  14   Copy frameworks from ROM to apktool				*"
-	echo "*  15   Clean folders							*"
-	echo "*  16   Batch Decompile (from place-rom-here-for-frameworks)		*"
-	echo "*  17   Batch Compile Apks						*"
-	echo "*  18   Batch Zipalign Apks						*"
-	echo "*										*"
-	echo "*  0    Exit								*"
+	echo "*  1    Adb pull                                                          *"
+	echo "*  2    Extract apk                                                       *"
+	echo "*  3    Optimize images inside (Only if \"Extract Apk\" was selected)     *"
+	echo "*  4    Zip apk                                                           *"
+	echo "*  5    Sign apk (Dont do this if its a system apk)                       *"
+	echo "*  6    Zipalign apk (Do once apk is created/signed)                      *"
+	echo "*  7    Adb push (Only for system apk)                                    *"
+	echo "*  8    Decompile apk                                                     *"
+	echo "*  9    Compile apk                                                       *"
+	echo "*  10   Sign apk                                                          *"
+	echo "*  11   Compile apk / Sign apk / Install apk (All in one step)            *"
+	echo "*  12   Batch Optimize Apk (inside place-apk-here-to-batch-optimize only) *"
+	echo "*  13   Tool Tweaks - (Optipng & compression settings)                    *"
+	echo "*  14   Copy frameworks from ROM to apktool                               *"
+	echo "*  15   Clean folders                                                     *"
+	echo "*  16   Batch Operations Menu                                             *"
+	echo "*                                                                         *"
+	echo "*  0    Exit                                                              *"
 	echo "***************************************************************************"
 	printf "%s" "Please make your decision: "
 	read ANSWER
@@ -379,9 +387,7 @@ clear
 		13)   tt ;;
 		14)   fw ;;
 		15)   cf ;;
-		16)  bde ;;
-		17)  bco ;;
-		18)  bza ;;
+		16)  batops ;;
                 0) quit ;;
 		 *)
 			echo "Unknown command: '$ANSWER'"
@@ -389,7 +395,37 @@ clear
 	esac
 }
 
+batops () {
+clear
+	echo "**************************** ThemeR-Studio_V2 *****************************"
+	echo "**************************** Batch Operations *****************************"
+	echo "*  1    Decompile ROM                                                     *"
+	echo "*  2    Compile apks                                                      *"
+	echo "*  3    Zipalign apks                                                     *"
+	echo "*                                                                         *"
+	echo "*  0    Return to ThemeR-Studio Menu                                      *"
+	echo "***************************************************************************"
+	printf "%s" "Please make your decision: "
+	read BATCHOPS
+
+	case "$BATCHOPS" in
+		1)      bde ;;
+		2)      bco ;;
+		3)      bza ;;
+		0)  restart ;;
+		*)
+			echo "Unknown command: '$BATCHOPS'"
+		;;
+	esac
+}
+
+
 # Start
+	mkdir -p $pam
+	mkdir -p $bo
+	mkdir -p $rom
+	mkdir -p $ca
+	mkdir -p $da
 PATH="$PATH:$tools"
 export PATH
 # Test for needed programs and warn if missing
