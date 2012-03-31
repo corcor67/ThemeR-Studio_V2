@@ -12,6 +12,7 @@ ws=$ts/Android
 echo "Downloading and installing dependencies required by ThemeR-Studio_V2"
       sudo yum install wget
       sudo yum install p7zip
+      sudo yum install p7zip-plugins
       sudo yum install sox
 
 # Get Java
