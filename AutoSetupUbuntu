@@ -9,11 +9,7 @@ tools=$ts/.tools
 ws=$ts/Android
 
 # Install Programs
-echo "Downloading and installing dependencies required by ThemeR-Studio_V2"
-      sudo apt-get update
-      sudo apt-get install p7zip-full
-      sudo apt-get install sox
-      sudo apt-get install openjdk-6-jdk
+$s/installubuntu.sh
 
 # Setup Directories
 echo "Creating Android workspace..." 
