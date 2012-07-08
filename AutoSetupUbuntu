@@ -12,41 +12,13 @@ ws=$ts/Android
 $s/installubuntu.sh
 
 # Setup Directories
-echo "Creating Android workspace..." 
-     mkdir -p $ws
-     mkdir -p $ws/ThemeR-Studio
-     mkdir -p $ws/ApkManager
-     mkdir -p $ws/apkopt
-7z x -o"$ts" $s/tools.7z
-cd $tools  
-chmod u+rwx *
+$s/workspace.sh
 
-mkdir -p $ts/.sdkDL
-cd $ts/.sdkDL
-      var_links=`wget -q -L -O - \
-       http://developer.android.com/sdk/index.html \
-       | grep -o 'http://dl.google.com/android/android-sdk[^"]*linux.tgz' \
-       | sed -e 's/<a href=\"//' -e 's/\"/\n/'`
-    wget --spider $var_links
-    wget $var_links 
-tar xvzf $ts/.sdkDL/*tgz -C "$ws"
-rm -rf $ts/.sdkDL
 # Have user manually edit in path for SDK
-       $s/tellBash.sh
+$s/tellBash.sh
 
 # Launch Android script from SDK so user can install platforms and tools.
-clear
-echo "A window will open for the Android SDK"
-echo "Install platforms and tools from here or close it to continue."
-$ws/android-sdk-linux/tools/android
-
-# Setup apkopt
-       cp "$s/apkopt.sh" $ws/apkopt
-
-# Setup ApkManager
-cp "$s/ApkManager.sh" $ws/ApkManager
-cp "$s/ApkManagerICS.sh" $ws/ApkManager
-cp "$s/ThemeR-Studio.sh" $ws/ThemeR-Studio
+$s/launchandroid.sh
 
 echo ""
 echo "Done! Thank you for using ThemeR-Studio, press enter to close."
