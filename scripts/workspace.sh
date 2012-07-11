@@ -13,13 +13,9 @@ echo "Creating Android workspace..."
      mkdir -p $ws
      mkdir -p $ws/ThemeR-Studio
      mkdir -p $ws/ApkManager
-     mkdir -p $ws/apkopt
 7z x -o"$ts" $s/tools.7z
 cd $tools  
 chmod u+rwx *
-
-# Setup apkopt
-       cp "$s/apkopt.sh" $ws/apkopt
 
 # Setup ApkManager
 cp "$s/ApkManager.sh" $ws/ApkManager
