@@ -14,6 +14,9 @@ $s/installubuntu.sh
 # Setup Directories
 $s/workspace.sh
 
+# Setup SDK
+$s/sdkdl.sh
+
 # Have user manually edit in path for SDK
 $s/tellBash.sh
 
