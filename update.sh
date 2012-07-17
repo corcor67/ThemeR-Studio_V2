@@ -9,5 +9,5 @@ s=$ts/scripts
 
 git pull
 
-$s/workspace
+$s/workspace.sh
 
