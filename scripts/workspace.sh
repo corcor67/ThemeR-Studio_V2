@@ -13,7 +13,7 @@ echo "Creating Android workspace..."
      mkdir -p $ws
      mkdir -p $ws/ThemeR-Studio
      mkdir -p $ws/ApkManager
-rm -rf $s/.tools
+rm -rf $tools
 7z x -o"$ts" $s/tools.7z
 cd $tools  
 chmod u+rwx *
