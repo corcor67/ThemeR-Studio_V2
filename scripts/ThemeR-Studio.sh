@@ -147,13 +147,13 @@ de () {
 	rm -rf "$am/out"
 	rm -rf "out.out"
 	clear
-	java -jar apktool1.4.2.jar d $pam/*.apk "$am/out"
+	java -jar apktool.jar d $pam/*.apk "$am/out"
 	cd $am
 }
 
 co () {
 	cd $tools
-	java -jar apktool1.4.3.jar b "$am/out" "$pam/repackaged-unsigned.apk"
+	java -jar apktool.jar b "$am/out" "$pam/repackaged-unsigned.apk"
 	cd $am
 }
 
@@ -235,7 +235,7 @@ for apks in $(find . -name "*.apk")
 do
 echo "$apks"
 cd $tools
-java -jar apktool1.4.2.jar d $app/$apks $da/"`basename $apks .apk`"
+java -jar apktool.jar d $app/$apks $da/"`basename $apks .apk`"
 done
 
 # /frameworks
@@ -244,7 +244,7 @@ for apks in $(find . -name "*.apk")
 do
 echo $apks
 cd $tools
-java -jar apktool1.4.2.jar d $fw/$apks $da/"`basename $apks .apk`"
+java -jar apktool.jar d $fw/$apks $da/"`basename $apks .apk`"
 done
 cd $am
 }
@@ -258,7 +258,7 @@ cd $da
 for dirs in *
 do
 cd $tools
-java -jar apktool1.4.3.jar b "$dirs" "$ca/$dirs.apk"
+java -jar apktool.jar b "$dirs" "$ca/$dirs.apk"
 done
 cd $am
 }
