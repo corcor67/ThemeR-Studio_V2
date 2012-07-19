@@ -17,4 +17,4 @@ echo "*** Checking for sox"
 type sox >/dev/null 2>&1 || { echo >&2 "Didn't find sox, attempting to install..."; sudo apt-get install sox; }
 
 echo "*** Checking for java"
-type java >/dev/null 2>&1 || { echo >&2 "Didn't find java, attempting to install..."; sudo apt-get install java; }
+type java >/dev/null 2>&1 || { echo >&2 "Didn't find java, attempting to install..."; sudo apt-get install openjdk-6-jdk; }
