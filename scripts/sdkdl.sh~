@@ -2,10 +2,6 @@
 # ThemeR Studio v2.0 by CorCor67
 # v2.0 TheNeXGen
 
-# Paths
-ts=~/ThemeR-Studio_V2
-ws=$ts/Android
-
 mkdir -p $ts/.sdkDL
 cd $ts/.sdkDL
       var_links=`wget -q -L -O - \
