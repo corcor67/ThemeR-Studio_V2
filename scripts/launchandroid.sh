@@ -4,8 +4,6 @@
 
 # PATHS
 ts=~/ThemeR-Studio_V2
-s=$ts/scripts
-tools=$ts/.tools
 ws=$ts/Android
 
 # Launch Android script from SDK so user can install platforms and tools.
