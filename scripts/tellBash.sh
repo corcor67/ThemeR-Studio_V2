@@ -4,7 +4,7 @@
 # v2.0 TheNeXGen
 b=~/.bashrc
 c=~/.BU_bashrc
-path='export PATH=$PATH:~s/ThemeR-Studio_V2/Android/android-sdk-linux/tools:~/ThemeR-Studio_V2/Android/android-sdk-linux/platform-tools:~/bin'
+path='export PATH=$PATH:~/ThemeR-Studio_V2/Android/android-sdk-linux/tools:~/ThemeR-Studio_V2/Android/android-sdk-linux/platform-tools:~/bin'
 
 
 echo "Checking to see if you have an existing .bashrc"
