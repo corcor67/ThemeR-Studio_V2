@@ -286,7 +286,7 @@ fw () { clear
 	rm -rf $rom/decompressed
 	7z x -o"$rom/decompressed" $rom/*.zip
 	cd $rom/decompressed/system/framework
-	rm -rf ~/apktool/framework/*
+	rm -rf ~/apktool/frameworks/*
 	cp "framework-res.apk" ~/apktool/framework/1.apk
 #	rm $rom/decompressed/system/framework/framework-res.apk
 # Find any third party frameworks
